@@ -77,6 +77,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   ios_base::Init::Init()
   {
+    printf("%s\n", __PRETTY_FUNCTION__);
     if (__gnu_cxx::__exchange_and_add_dispatch(&_S_refcount, 1) == 0)
       {
 	// Standard streams default to synced with "C" operations.
@@ -122,6 +123,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   ios_base::Init::~Init()
   {
+    printf("%s\n", __PRETTY_FUNCTION__);
     // Be race-detector-friendly.  For more info see bits/c++config.
     _GLIBCXX_SYNCHRONIZATION_HAPPENS_BEFORE(&_S_refcount);
     if (__gnu_cxx::__exchange_and_add_dispatch(&_S_refcount, -1) == 2)
