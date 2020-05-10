@@ -1,0 +1,30 @@
+Netbeans:
+
+/home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/include;/home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/include/std
+
+
+
+gcc
+
+    github:
+        https://github.com/lihui7115/gcc.git
+    branch
+        topic-study-gcc-9.3.0
+
+
+
+build
+
+    cd gcc
+    mkdir -p libstdc++-v3-build
+    cd libstdc++-v3-build
+    CFLAGS="-g -O0" CXXFLAGS="-g -O0" ../libstdc++-v3/configure prefix=/usr
+    make -j8
+    DESTDIR=`pwd`/out make install
+
+re-build
+
+    make clean
+    make -j8
+    DESTDIR=`pwd`/out make install
+

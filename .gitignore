@@ -55,3 +55,8 @@ REVISION
 /mpc*
 /gmp*
 /isl*
+
+# study
+libstdc++-v3/nbproject
+example/nbproject
+example/build
