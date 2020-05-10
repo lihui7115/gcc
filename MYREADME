@@ -28,3 +28,16 @@ re-build
     make -j8
     DESTDIR=`pwd`/out make install
 
+
+
+/root/.gdbinit
+
+    add-auto-load-safe-path /root/workspace/focal_docker_cpp/gcc-9-9.3.0/src/libstdc++-v3/build/out/usr/lib/libstdc++.so.6.0.28-gdb.py
+    set print pretty on
+    set print object on
+    set print static-members on
+    set print vtbl on
+    set print demangle on
+    set demangle-style gnu-v3
+
+
