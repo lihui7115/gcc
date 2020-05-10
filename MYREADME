@@ -1,6 +1,14 @@
 Netbeans:
 
-/home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/include;/home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/include/std
+    example:
+        Include directories: /home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/include;/home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/include/std
+        C++ standard: c++14
+
+    libstdc++-v3:
+        Include directories: /home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/include;/home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/include/std;../libstdc++-v3-build/out/usr/include/c++/9.3.0
+        Preprocessor Definitions: __cplusplus=202005L
+        C++ standard: c++14
+
 
 
 
