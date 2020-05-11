@@ -65,6 +65,7 @@ add_executable(${PROJECT_NAME} ${app_sources} )
 target_link_libraries( ${PROJECT_NAME}
 pthread
 template_lib
+stdc++fs
 )
 
 # install library(include), application

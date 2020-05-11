@@ -5,6 +5,9 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <locale>
+//#include <filesystem>
+#include <experimental/filesystem>
 
 #include "test.h"
 
@@ -23,9 +26,36 @@ int main() {
 //  int ret = pthread_create(&thread, NULL, thread_func, NULL);
 //  assert(ret == 0);
 //  pthread_join(thread, NULL);
+  
+  {
+    using std::experimental::filesystem::path;
+    path p0 = "/a/a/b/b";
+    std::cout << p0.string() << std::endl;
+  }
+  
+  {
 
-  cout << std::boolalpha << true << endl;
-  cout << "test" << endl;
+//    std::wcout.sync_with_stdio(false);
+    std::cout << "1test" << std::endl;
+    std::cout << "1test双喜雙喜!" << std::endl;
+    std::wcout << L"1wtest" << std::endl;
+    std::wcout << L"1wtest双喜雙喜!" << std::endl;
+    
+    std::wcout.sync_with_stdio(false);
+    std::wcout.imbue(std::locale("en_US.utf8"));
+//    std::wcout.imbue(std::locale("zh_CN.utf8"));
+    std::cout << "2test" << std::endl;
+    std::cout << "2test双喜雙喜!" << std::endl;
+    std::wcout << L"2wtest" << std::endl;
+    std::wcout << L"2w双喜雙喜!" << std::endl;
+    return 0;
+  }
+  
+  
+  {
+    cout << std::boolalpha << true << endl;
+    cout << "test" << endl;
+  }
 
   test_t<int>(10);
   {
@@ -39,12 +69,13 @@ int main() {
     }
   }
 
-  vector<int> vi;
-  vi.push_back(1);
-  for(auto i : vi) {
-    cout << i << endl;
+  {
+    vector<int> vi;
+    vi.push_back(1);
+    for(auto i : vi) {
+      cout << i << endl;
+    }
   }
-  
               
   return 0;
 }
