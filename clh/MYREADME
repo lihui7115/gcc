@@ -1,4 +1,6 @@
-Netbeans:
+# Netbeans:
+
+## home
 
     example:
         Include directories: /home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/include;/home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/include/std
@@ -10,9 +12,20 @@ Netbeans:
         C++ standard: c++14
 
 
+## work
+
+    example:
+        Include directories: /home/sharedata/Projects/cpp_expert/gcc/libstdc++-v3/include;/home/sharedata/Projects/cpp_expert/gcc/libstdc++-v3/include/std
+        C++ standard: c++14
+
+    libstdc++-v3:
+        Include directories: /home/sharedata/Projects/cpp_expert/gcc/libstdc++-v3/include;/home/sharedata/Projects/cpp_expert/gcc/libstdc++-v3/include/std;../libstdc++-v3-build/out/usr/include/c++/9.3.0
+        Preprocessor Definitions: __cplusplus=202005L
+        C++ standard: c++14
 
 
-gcc
+
+# gcc
 
     github:
         https://github.com/lihui7115/gcc.git
@@ -21,7 +34,7 @@ gcc
 
 
 
-build
+# build
 
     cd gcc
     mkdir -p libstdc++-v3-build
@@ -30,7 +43,7 @@ build
     make -j8
     DESTDIR=`pwd`/out make install
 
-re-build
+# re-build
 
     make clean
     make -j8
@@ -38,7 +51,7 @@ re-build
 
 
 
-/root/.gdbinit
+# /root/.gdbinit
 
     add-auto-load-safe-path /root/workspace/focal_docker_cpp/gcc-9-9.3.0/src/libstdc++-v3/build/out/usr/lib/libstdc++.so.6.0.28-gdb.py
     set print pretty on
