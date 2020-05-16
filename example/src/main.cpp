@@ -3,9 +3,15 @@
 
 using namespace std;
 
+void g() noexcept {
+  throw 1;
+}
+
 int main() {
+  class A;
+  
   try {
-    throw 1;
+    g();
   } catch (...) {
     cout << "caught a exception" << endl;
   }

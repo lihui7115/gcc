@@ -1,0 +1,87 @@
+
+
+c++
+    throw 1
+        to call
+            __cxxabiv1::__cxa_allocate_exception            (here is int(1) exception object)
+                
+
+            __cxxabiv1::__cxa_throw                         (set the dest into exception for raise)
+                __cxa_init_primary_exception
+                _Unwind_RaiseException                      1. jump to handler
+                __cxxabiv1::__cxa_begin_catch               2. if not jump to handler
+                std::terminate ();
+    catch (...)
+        to call
+            __cxxabiv1::__cxa_begin_catch
+
+
+
+
+
+/home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/libsupc++/eh_throw.cc
+
+extern "C" void
+__cxxabiv1::__cxa_throw (void *obj, std::type_info *tinfo,
+			 void (_GLIBCXX_CDTOR_CALLABI *dest) (void *))
+{
+  PROBE2 (throw, obj, tinfo);
+
+  __cxa_eh_globals *globals = __cxa_get_globals ();
+  globals->uncaughtExceptions += 1;
+  // Definitely a primary.
+  __cxa_refcounted_exception *header =
+    __cxa_init_primary_exception(obj, tinfo, dest);
+  header->referenceCount = 1;
+
+#ifdef __USING_SJLJ_EXCEPTIONS__
+  _Unwind_SjLj_RaiseException (&header->exc.unwindHeader);
+#else
+  _Unwind_RaiseException (&header->exc.unwindHeader);
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   <=== if there is handler for this throw, jump to the handler
+#endif
+
+  // Some sort of unwinding error.  Note that terminate is a handler.
+  __cxa_begin_catch (&header->exc.unwindHeader);
+  std::terminate ();
+}
+
+
+/home/chenlh/Projects/gcc/focal_docker_cpp/gcc/libstdc++-v3/libsupc++/eh_catch.cc
+
+
+
+## gdb
+
+
+(gdb) p *header
+$4 = {
+  exceptionType = 0x555555557d30 <typeinfo for int@@CXXABI_1.3>,
+  exceptionDestructor = 0x0,
+  unexpectedHandler = 0x7ffff7e435a8 <std::terminate()>,
+  terminateHandler = 0x7ffff7e46c6f <__gnu_cxx::__verbose_terminate_handler()>,
+  nextException = 0x0,
+  handlerCount = 1,
+  handlerSwitchValue = 1,
+  actionRecord = 0x5555555561f6 "\001",
+  languageSpecificData = 0x5555555561e0 "\377\233\031\001\021,\005\061\001K\032q",
+  catchTemp = 93824992236154,
+  adjustedPtr = 0x55555556b340,
+  unwindHeader = {
+    exception_class = 5138137972254386944,
+    exception_cleanup = 0x7ffff7e43a76 <__gxx_exception_cleanup(_Unwind_Reason_Code, _Unwind_Exception*)>,
+    private_1 = 0,
+    private_2 = 140737488348544
+  }
+}
+(gdb) bt
+#0  __cxxabiv1::__gxx_caught_object (eo=0x55555556b320) at ../../libstdc++-v3/libsupc++/unwind-cxx.h:376
+#1  0x00007ffff7e41ac6 in __cxxabiv1::__cxa_begin_catch (exc_obj_in=0x55555556b320) at ../../libstdc++-v3/libsupc++/eh_catch.cc:82
+#2  0x0000555555555286 in main () at /root/workspace/focal_docker_cpp/gcc/example/src/main.cpp:9
+
+
+
+-------------------------------------------------------
+
+
+
