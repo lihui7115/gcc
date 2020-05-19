@@ -36,6 +36,7 @@
 
 #pragma GCC system_header
 
+#include <cstdio>
 #include <ext/atomicity.h>
 #include <ext/alloc_traits.h>
 #include <debug/debug.h>
@@ -524,7 +525,10 @@ _GLIBCXX_BEGIN_NAMESPACE_CXX11
 #endif
       basic_string(const _CharT* __s, const _Alloc& __a = _Alloc())
       : _M_dataplus(_M_local_data(), __a)
-      { _M_construct(__s, __s ? __s + traits_type::length(__s) : __s+npos); }
+      {
+          printf("%s\n", __PRETTY_FUNCTION__);
+          _M_construct(__s, __s ? __s + traits_type::length(__s) : __s+npos);
+      }
 
       /**
        *  @brief  Construct string as multiple characters.
