@@ -1,3 +1,5 @@
+// __cxa_call_terminate
+// __cxa_call_unexpected
 
 
 c++
@@ -83,5 +85,36 @@ $4 = {
 
 -------------------------------------------------------
 
+g++ to build throw
+
+```
+# gcc$ vi cp/except.c
+
+/* Build a throw expression.  */
+
+tree
+build_throw (tree exp)
+{
+  if (exp == error_mark_node)
+    return exp;
+```
+
+
+
+
+
+
+-------------------------------------
+
+
+(gdb) bt
+#0  save_caught_exception (ue_header=0x55555556b320, context=0x7fffffffe270, thrown_ptr=0x55555556b340, handler_switch_value=1, 
+    language_specific_data=0x5555555562fc "\377\233\035\001\023=\005B\003g\005", landing_pad=93824992236683, action_record=0x555555556314 "\001")
+    at ../../libstdc++-v3/libsupc++/eh_personality.cc:285
+#1  0x00007ffff7e42c31 in __cxxabiv1::__gxx_personality_v0 (version=1, actions=1, exception_class=5138137972254386944, ue_header=0x55555556b320, context=0x7fffffffe270)
+    at ../../libstdc++-v3/libsupc++/eh_personality.cc:649
+#2  0x00007ffff7d6b0b6 in _Unwind_RaiseException () from /lib/x86_64-linux-gnu/libgcc_s.so.1
+#3  0x00007ffff7e43c03 in __cxxabiv1::__cxa_throw (obj=0x55555556b340, tinfo=0x555555557d10 <typeinfo for int@@CXXABI_1.3>, dest=0x0) at ../../libstdc++-v3/libsupc++/eh_throw.cc:90
+#4  0x000055555555548b in main () at /root/workspace/focal_docker_cpp/gcc/example/src/main.cpp:48
 
 

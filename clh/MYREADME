@@ -49,3 +49,22 @@ re-build
     set demangle-style gnu-v3
 
 
+
+
+## gcc (for c/c++)
+
+    # https://blog.csdn.net/With__Sunshine/article/details/80509949
+    ./contrib/download_prerequisites
+
+    mkdir build
+    mkdir -p build
+    cd build
+    CFLAGS="-g -O0" CXXFLAGS="-g -O0" ../configure --enable-languages=c,c++ --prefix=/usr --disable-multilib
+    make -j8
+    DESTDIR=`pwd`/out make install
+
+real	32m19.573s
+user	187m3.889s
+sys	6m52.125s
+
+
